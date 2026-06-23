@@ -1,8 +1,7 @@
-# Academic Advisor — Multi-Agent System (terminal)
+# Academic Advisor — Multi-Agent System 
 
 A small **orchestrator + specialist agents** system that answers student questions
-from five SRH documents. No frontend — it runs in the terminal. Retrieval is
-**BM25** (keyword search), so it works fully offline with no model downloads.
+from five SRH documents. 
 
 ## What it does
 An **orchestrator** reads your question, decides the intent, and routes it to one
@@ -66,17 +65,3 @@ Calendar is checked before module so "lecture period / when does …" isn't swal
 by the generic word "semester". Anything unmatched falls back to the general agent,
 which searches all documents.
 
-## Swapping BM25 for semantic search (optional)
-BM25 matches keywords. To also catch synonyms, embed chunks with
-`sentence-transformers` and rank by cosine similarity inside
-`DocumentStore.search`. Keep BM25 as a fallback for exact terms (hybrid search).
-
-## Turning on a real LLM (optional)
-Answers are extractive by default. In `advisor/llm.py` set `USE_LLM = True` and
-implement `_call_llm` (a flan-t5 snippet is included in the comments, or call an API).
-Every agent then phrases its answer with the model while staying grounded in the
-retrieved context.
-
-## Adding documents
-Drop a PDF in `data/`, add an entry to `DOCUMENTS` in `advisor/config.py`, and
-(optionally) add keywords/a new agent. Everything else picks it up automatically.
